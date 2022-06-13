@@ -1,6 +1,0 @@
-module Pods_FieldLoggingEnv {
-  umbrella header "Pods-FieldLoggingEnv-umbrella.h"
-
-  export *
-  module * { export * }
-}

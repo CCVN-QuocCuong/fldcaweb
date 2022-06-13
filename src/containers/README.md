@@ -1,1 +1,0 @@
-This directory contains the components containers to cover components.

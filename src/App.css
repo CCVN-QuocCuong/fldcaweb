@@ -1,0 +1,23 @@
+/* @font-face {
+    font-family: Europa-Regular;
+    src: url("./assets/font/Europa-Regular.ttf");
+} */
+@import url(//db.onlinewebfonts.com/c/d3bfee78e8ead45d9057a95bb6ff5de8?family=Europa-Bold);
+@import url(//db.onlinewebfonts.com/c/23c0fcab84d99da0de762de7e220a6e1?family=Europa);
+
+@font-face {
+    font-family: "Europa-Bold";
+    src: url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.eot");
+    src: url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.woff") format("woff"), url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/d3bfee78e8ead45d9057a95bb6ff5de8.svg#Europa-Bold") format("svg");
+}
+
+@font-face {
+    font-family: "Europa";
+    src: url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.eot");
+    src: url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.woff") format("woff"), url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/23c0fcab84d99da0de762de7e220a6e1.svg#Europa") format("svg");
+}
+
+
+body {
+    font-family: Europa !important;
+}
