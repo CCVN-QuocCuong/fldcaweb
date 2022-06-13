@@ -124,7 +124,7 @@ export function Login(props) {
                         <div  className="text-center mt-3">
                           <button type="button" onClick={() => onLoginWithAzure()} className="btn btn-block btn-primary-login-azure rounded-0">
                             <img src={azureIcon} alt="" className="avatar-azure" /> 
-                            <span style={{padding: 5}}> Login with Azure </span> 
+                            <span style={{padding: 5}}> Login with Azure  </span> 
                           </button>
                         </div>
                       </form>
