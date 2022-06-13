@@ -15,9 +15,10 @@ Amplify.configure(config)
 const App = () => {
   return (
     <Provider store={store}>
-      <Router history={history}>
+      {/* <Router history={history}>
         <Routes />
-      </Router>
+      </Router> */}
+      <h1>Hello, world!</h1>
     </Provider>
   )
 }
