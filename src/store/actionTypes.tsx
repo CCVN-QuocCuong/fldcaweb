@@ -1,0 +1,12 @@
+export const authActionType = {
+  LOGIN: "LOGIN",
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  REMEMBER_ME: "REMEMBER_ME",
+  LOGOUT: "LOGOUT",
+  ERROR_LOGIN: "ERROR_LOGIN",
+  CLEAR_ERROR_MESSAGE: "CLEAR_ERROR_MESSAGE",
+};
+
+export const appActionType = {
+  SET_LOADING: "SET_LOADING"
+};
