@@ -1,0 +1,180 @@
+span {
+    font-size: clamp(10px, 0.8vw, 10vh)
+}
+
+body {
+    margin: 0px;
+}
+
+.sr-only {
+    display: none;
+}
+
+.leaflet-container {
+    width: 100vw;
+}
+
+.row-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.button-get-location {
+    height: 36px;
+    width: max-content;
+    float: right;
+    background-color: rgb(0, 89, 255);
+    color: aliceblue;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.button-moving {
+    background-color: red;
+}
+
+.button-unmove {
+    background-color: black;
+}
+
+.fomat-collapsed .ant-collapse-content-box {
+    padding: unset;
+}
+
+.fomat-collapsed .ant-list-item {
+    cursor: pointer;
+    display: flow-root;
+}
+
+.col-choose-color-draw {
+    display: inline-grid;
+}
+
+.col-choose-color-draw .ant-radio-group {
+    display: contents !important;
+}
+
+.control-action {
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.list-positions {
+    padding: unset;
+
+    .ant-list-items {
+        height: 200px;
+        overflow: auto;
+    }
+}
+
+
+@media screen and (max-width: 425px) and (min-width: 320px) {
+    .list-positions {
+        width: 180px;
+        display: block;
+
+        .ant-collapse-header {
+            padding: 4px !important;
+        }
+    }
+
+}
+
+
+.box {
+    width: 40%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 35px;
+    border: 2px solid #fff;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+}
+
+.button {
+    font-size: 1em;
+    padding: 10px;
+    color: #fff;
+    border: 2px solid #06D85F;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.button:hover {
+    background: #06D85F;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+
+    h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .content {
+        max-height: 30%;
+        overflow: auto;
+    }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .close:hover {
+        color: #06D85F;
+    }
+
+}
+
+.icon-note {
+    box-shadow: 0 1px 5px rgb(0 0 0 / 65%);
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .popup {
+        width: 70%;
+    }
+}
