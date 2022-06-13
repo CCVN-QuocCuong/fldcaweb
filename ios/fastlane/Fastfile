@@ -1,0 +1,197 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    ENV['S3_ACCESS_KEY'] = "AKIA5NAFX54WFOEMZTYI"
+    ENV['S3_SECRET_ACCESS_KEY'] = "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"
+    ENV['S3_BUCKET'] = "fldca-application-bucket"
+    ENV['S3_REGION'] = "ap-southeast-2"
+    ENV['S3_ACL'] = "public-read"
+    ENV['S3_SERVER_SIDE_ENCRYPTION'] = "AES256"
+  end
+
+  ############################################################
+
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  ############################################################
+
+  desc "Submit a new Beta Build to FireBase App Distribution"
+  lane :beta do
+    version_name = prompt(text: "Version Name On iOS: ")
+    version_code = prompt(text: "Version Code On iOS: ")
+    increment_version_number(
+      version_number: version_name
+    )
+
+    increment_build_number(
+      build_number: version_code
+    )
+
+    releaseNotes = changelog_from_git_commits(
+      commits_count: 10,
+      pretty: "- %s"
+    )
+
+    build_app(
+      workspace: "FieldLoggingEnv.xcworkspace",
+      configuration: "Release",
+      scheme: "FieldLoggingEnv",
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: { 
+          "com.fieldlogging" => "FieldsLoggingDev"
+        }
+      },
+      silent: true,
+      clean: true,
+      output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
+      output_name: "FieldLoggingEnv.ipa"       # specify the name of the .ipa file to generate (including file extension)
+    )
+
+    firebase_app_distribution(
+      app: "1:362838375987:ios:23f50b5f71f8db130f2d46",
+      firebase_cli_token: "1//0ezWr2SY6fa52CgYIARAAGA4SNwF-L9IrMCxSPuwSCvR0oV_iGjiA30pP4crcFxQOwWTrlD1kOmrLAnWNQADrRXdkDBtJfiGk5VY",
+      release_notes: releaseNotes
+    )
+  end
+
+  ############################################################
+
+  desc "Submit a new Beta Build to AWS S3"
+  lane :upload_s3 do
+    version_name = prompt(text: "Version Name On iOS: ")
+    version_code = prompt(text: "Version Code On iOS: ")
+    increment_version_number(
+      version_number: version_name
+    )
+
+    increment_build_number(
+      build_number: version_code
+    )
+
+    releaseNotes = changelog_from_git_commits(
+      commits_count: 10,
+      pretty: "- %s"
+    )
+
+    build_app(
+      workspace: "FieldLoggingEnv.xcworkspace",
+      configuration: "Release",
+      scheme: "FieldLoggingEnv",
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: { 
+          "com.fieldlogging" => "FieldsLoggingDev"
+        }
+      },
+      silent: true,
+      clean: true,
+      output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
+      output_name: "FieldLoggingEnv.ipa"       # specify the name of the .ipa file to generate (including file extension)
+    )
+
+    aws_s3(
+      # All of these are used to make Shenzhen's `ipa distribute:s3` command
+      access_key: ENV['S3_ACCESS_KEY'],                                 # Optional - defaults to AWS Instance Profile Creds.
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],                   # Optional - defaults to AWS Instance Profile Creds.
+      bucket: ENV['S3_BUCKET'],                                         # Required from user.
+      region: ENV['S3_REGION'],                                         # Required from user.
+      acl: ENV['S3_ACL'],                                               # Optional - defaults to 'public-read'
+      server_side_encryption: ENV['S3_SERVER_SIDE_ENCRYPTION'],         # Optional
+      ipa: 'path/to/dir/FieldLoggingEnv.ipa',                              # Required (if not uploading an APK).
+      dsym: 'path/to/dir/FieldLoggingEnv.app.dSYM.zip',                    # Optional if you use `ipa` to build.
+      app_directory: 'build_ios',                                       # Optional but nice if you want to put multiple apps in same bucket
+      path: 'FieldLogging_Beta-v{CFBundleShortVersionString}_b{CFBundleVersion}/', # This is actually the default.
+      upload_metadata: true,                                            # Upload version.json, plist and HTML. Set to false to skip uploading of these files.
+      version_file_name: 'app_version.json',                            # Name of the file to upload to S3. Defaults to 'version.json'
+      version_template_path: 'path/to/erb'                              # Path to an ERB to configure the structure of the version JSON file
+    )
+  end
+
+  ############################################################
+
+  desc "Submit a new Beta Build to FireBase App Distribution"
+  lane :beta_jenkins do |options|
+    #version_name = prompt(text: "Version Name On iOS: ")
+    #version_code = prompt(text: "Version Code On iOS: ")
+    
+    increment_version_number(
+      version_number: options[:version_name]
+    )
+
+    increment_build_number(
+      build_number: options[:build_number]
+    )
+
+    releaseNotes = changelog_from_git_commits(
+      commits_count: 10,
+      pretty: "- %s"
+    )
+
+    build_app(
+      workspace: "FieldLoggingEnv.xcworkspace",
+      configuration: "Release",
+      scheme: "FieldLoggingEnv",
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: { 
+          "com.fieldlogging" => "FieldsLoggingDev"
+        }
+      },
+      silent: true,
+      clean: true,
+      output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
+      output_name: "FieldLoggingEnv.ipa"       # specify the name of the .ipa file to generate (including file extension)
+    )
+
+    if options[:lane_deployment] == "firebase_app_distribution"
+      firebase_app_distribution(
+        app: "1:362838375987:ios:23f50b5f71f8db130f2d46",
+        groups: options[:groups_testers],
+        firebase_cli_token: "1//0ezWr2SY6fa52CgYIARAAGA4SNwF-L9IrMCxSPuwSCvR0oV_iGjiA30pP4crcFxQOwWTrlD1kOmrLAnWNQADrRXdkDBtJfiGk5VY",
+        release_notes: releaseNotes
+      )
+    end
+
+    if options[:lane_deployment] == "aws_s3"
+      aws_s3(
+        # All of these are used to make Shenzhen's `ipa distribute:s3` command
+        access_key: ENV['S3_ACCESS_KEY'],                                 # Optional - defaults to AWS Instance Profile Creds.
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],                   # Optional - defaults to AWS Instance Profile Creds.
+        bucket: ENV['S3_BUCKET'],                                         # Required from user.
+        region: ENV['S3_REGION'],                                         # Required from user.
+        acl: ENV['S3_ACL'],                                               # Optional - defaults to 'public-read'
+        server_side_encryption: ENV['S3_SERVER_SIDE_ENCRYPTION'],         # Optional
+        ipa: 'path/to/dir/FieldLoggingEnv.ipa',                              # Required (if not uploading an APK).
+        dsym: 'path/to/dir/FieldLoggingEnv.app.dSYM.zip',                    # Optional if you use `ipa` to build.
+        app_directory: 'build_ios',                                       # Optional but nice if you want to put multiple apps in same bucket
+        path: 'FieldLogging_Beta-v{CFBundleShortVersionString}_b{CFBundleVersion}/', # This is actually the default.
+        upload_metadata: true,                                            # Upload version.json, plist and HTML. Set to false to skip uploading of these files.
+        version_file_name: 'app_version.json',                            # Name of the file to upload to S3. Defaults to 'version.json'
+        version_template_path: 'path/to/erb'                              # Path to an ERB to configure the structure of the version JSON file
+      )
+    end    
+  end
+
+  ############################################################
+
+end

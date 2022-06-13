@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000364">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: prompt" time="4.17678">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: prompt" time="0.783329">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: clean" time="6.188516">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: assembleRelease" time="169.413329">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: aws_s3" time="29.438501">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
